@@ -62,7 +62,9 @@ function timeToDate(_date,_format,_delimiter)
 
 exports.createArticle = function(req, res, next) {
     var data = utils.convertDates(req.body);
+    console.log("hit for create report "+data)
     var articleModel = new Article(data);
+    console.log("saving report")
     articleModel.save(function(err, article) {
         if (err) {
             res.status(500);
@@ -80,7 +82,36 @@ exports.createArticle = function(req, res, next) {
 }
 
 exports.fetchArticles = function(req, res, next) {
-    Article.find(function(err, article) {
+
+    var paginate = req.params.size;
+    var page = req.params.page;
+    console.log("inside fetch all reports paginate settings"+page+"/"+paginate)
+    
+    /*Article.find({}).skip((page-1)*paginate).limit(paginate)
+    .exec(function(err, result) {
+        // Write some stuff here
+        if (err) {
+            res.status(500);
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            })
+        } else {
+            if (article) {
+                res.json({
+                    type: true,
+                    size: article.length,
+                    data: article
+                })
+            } else {
+                res.json({
+                    type: false,
+                    data: "Articles not found"
+                })
+            }
+        }
+    });*/
+    Article.find({}, null, {sort: {updatedOn: -1}}, function(err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -111,7 +142,7 @@ exports.fetchArticlesByRange = function(req, res, next) {
 
     Article.find({
   loc: { $geoWithin: { $centerSphere: [ [ lat, lng ], radius/3963.2 ] } }
-},function(err, article) {
+}, null, {sort: {updatedOn: -1}},function(err, article) {
         if (err) {
             res.status(500);
             res.json({
@@ -132,7 +163,7 @@ exports.fetchArticlesByRange = function(req, res, next) {
                 })
             }
         }
-    })
+    });
 }
 
 exports.viewArticle = function(req, res, next) {
@@ -159,30 +190,6 @@ exports.viewArticle = function(req, res, next) {
     })
 }
 
-exports.viewArticle_v2 = function(req, res, next) {
-    Article.findById(new ObjectId(req.params.id), function(err, article) {
-        if (err) {
-            res.status(500);
-            res.json({
-                type: false,
-                data: "Error occured: " + err
-            })
-        } else {
-            if (article) {
-                article.title = article.title + " v2"
-                res.json({
-                    type: true,
-                    data: article
-                })
-            } else {
-                res.json({
-                    type: false,
-                    data: "Article: " + req.params.id + " not found"
-                })
-            }
-        }
-    })
-}
 
 exports.updateArticle = function(req, res, next) {
     var updatedArticleModel = new Article(req.body);
@@ -258,3 +265,93 @@ exports.createArticleComment = function(req, res, next) {
     })
 
 }
+
+exports.fetchArticlesCount = function(req, res, next) {
+    console.log("hit for fetching total report count")
+    Article.count(function(err, article) {
+        if (err) {
+            res.status(500);
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            })
+        } else {
+            if (article) {
+                res.json({
+                    type: true,
+                    data: article
+                })
+            } else {
+                res.json({
+                    type: false,
+                    data: "Article: " + req.params.id + " not found"
+                })
+            }
+        }
+    })
+}
+
+exports.fetchArticlesCountBy = function(req, res, next) {
+    var key = req.params.key
+    var value = req.params.value
+    console.log("hit for fetching total report count for "+key+"="+value)
+    var query = {};
+    var criteria = key;
+    query[criteria] = new RegExp('^'+value+'$', "i");
+    Article.where(query).count(function(err, article) {
+        if (err) {
+            res.status(500);
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            })
+        } else {
+            if (article) {
+                res.json({
+                    type: true,
+                    data: article
+                })
+            } else {
+                res.json({
+                    type: false,
+                    data: "Article: " + key+"="+value+ " not found"
+                })
+            }
+        }
+    })
+}
+
+exports.fetchArticlesBy = function(req, res, next) {
+    var key = req.params.key
+    var value = req.params.value
+    console.log("hit for fetching total reports for "+key+"="+value)
+    var query = {};
+    var criteria = key;
+    query[criteria] = new RegExp('^'+value+'$', "i");
+    //query[criteria] = value;
+
+    Article.where(query).sort('updatedOn').find(function(err, article) {
+        if (err) {
+            res.status(500);
+            res.json({
+                type: false,
+                data: "Error occured: " + err
+            })
+        } else {
+            if (article) {
+                res.json({
+                    type: true,
+                    size: article.length,
+                    data: article
+                })
+            } else {
+                res.json({
+                    type: false,
+                    data: "Article: " + key+"="+value+ " not found"
+                })
+            }
+        }
+    })
+}
+
+

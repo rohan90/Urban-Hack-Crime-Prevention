@@ -34,8 +34,11 @@ server.put(base+"/articles/:id", controllers.article.updateArticle)
 server.del(base+"/articles/:id", controllers.article.deleteArticle)
 server.get({path: base+"/articles/:id", version: "1.0.0"}, controllers.article.viewArticle)
 server.get({path: base+"/articles/:lat/:lng/:radius", version: "1.0.0"}, controllers.article.fetchArticlesByRange)
-server.get({path: base+"/articles/", version: "1.0.0"}, controllers.article.fetchArticles)
-server.get({path: base+"/articles/:id", version: "2.0.0"}, controllers.article.viewArticle_v2)
+server.get({path: base+"/articles/:page/:size", version: "1.0.0"}, controllers.article.fetchArticles)
+//TODO find why the heck i was getting error when i named it articles/count
+server.get({path: base+"/reports/count", version: "1.0.0"}, controllers.article.fetchArticlesCount)
+server.get({path: base+"/reports/count/:key/:value", version: "1.0.0"}, controllers.article.fetchArticlesCountBy)
+server.get({path: base+"/articlesby/:key/:value", version: "1.0.0"}, controllers.article.fetchArticlesBy)
 
 // This is comment operations referenced in article
 server.put("/articles/:id/comments", controllers.article.createArticleComment)
