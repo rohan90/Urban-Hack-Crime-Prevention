@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_dark">#683570</color>
+    <color name="purple">#8C4498</color>
+    <color name="btn_purple">#9178b6</color>
+    <color name="bg_grey">#E6E6E6</color>\
+    <color name="bright_red">#FF0000</color>
+    <color name="blue_text">#004dfc</color>
+
+    <!-- MaterialDrawer DEFAULT DARK colors -->
+    <color name="material_drawer_dark_background">#303030</color>
+    <!-- MaterialDrawer DEFAULT DARK text / items colors -->
+    <color name="material_drawer_dark_icons">#000</color>
+    <color name="material_drawer_dark_primary_text">#DEFFFFFF</color>
+    <color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
+    <color name="material_drawer_dark_secondary_text">#8AFFFFFF</color>
+    <color name="material_drawer_dark_hint_text">#42FFFFFF</color>
+    <color name="material_drawer_dark_divider">#1FFFFFFF</color>
+    <!-- MaterialDrawer DEFAULT DARK drawer colors -->
+    <color name="material_drawer_dark_selected">#202020</color>
+    <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+    <color name="material_drawer_dark_header_selection_text">#FFF</color>
+    <color name="grey">#444444</color>
+    <color name="seperator_grey">#acacac</color>
+    <color name="grey_light_bg">#dedede</color>
+    <color name="grey_lightest_bg">#fefefe</color>
+    <color name="blue">#2196F3</color>
+    <color name="text_very_light">#aaa</color>
+    <color name="btn_disabled">#4b4b4d</color>
+    <color name="btn_blue_pressed">#0D47A1</color>
+    <color name="btn_blue">#0387e0</color>
+
+    <!--<color name="accent">#FFFC53BD</color>-->
+    <color name="accent">#fc1468</color>
+    <color name="job_bg">#ecebeb</color>
+    <color name="red">#F34235</color>
+    <color name="pink">#EC407A</color>
+    <color name="fab_pink">#fc1468</color>
+    <color name="grey_search">#5d5d5d</color>
+    <color name="btn_grey">#E1DFE0</color>
+
+    <!--Material colors-->
+    <color name="primaryColor">#ff5722</color>
+    <color name="primaryColorDark">#e64a19</color>
+    <color name="accentColor">#18ffff</color>
+
+    <color name="white">#fff</color>
+    <!--<color name="nav_drawer_color">#212121</color>-->
+    <color name="nav_drawer_color">#444444</color>
+    <color name="colorHighlight">#121212</color>
+    <color name="darkBackground">#d84315</color>
+    <color name="black">#000</color>
+    <color name="text_dark">#333</color>
+    <color name="text_light">#666</color>
+
+</resources>

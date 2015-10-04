@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Neighborhood Watch</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_login_activty">LoginActivty</string>
+    <string name="facebook_app_id">1649788781965056</string>
+
+    <string name="google_maps_api_key">AIzaSyBpYiqYkfw3yS1LMCu1Sy2fYi8JcqgvrwU</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="screen">Screen</string>
+    <string name="date_time_format">"dd/MM/yyyy"</string>
+    <string name="title_activity_report_summary">ReportSummaryActivity</string>
+</resources>
