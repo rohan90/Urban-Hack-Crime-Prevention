@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-var Schema   = mongoose.Schema;
 var Comment = require("./Comment");
+var Schema   = mongoose.Schema;
 
 var ArticleSchema = new Schema({
     id:String,
@@ -12,7 +12,7 @@ var ArticleSchema = new Schema({
     
     author: String,
     authorImgUrl: String,
-    comments: [Comment.schema],
+    //comments: [Comment.schema],
 
     imgUrls:[String],
     videoUrl:String,
