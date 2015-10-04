@@ -25,7 +25,7 @@
           console.log("fethcing reports inside reportService")
             var def = $q.defer();
 //TODO make url constants field
-            $http.get("http://localhost:3000/api/v1/articles")
+            $http.get("http://localhost:3000/api/v1/articles/0/0")
                 .success(function(data) {
                     console.log("recieved.."+data);
                     service.reports = data;

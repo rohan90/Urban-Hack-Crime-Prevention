@@ -9,11 +9,15 @@ html, body {
 /* Toolbar area */
 
 .menu {
-  background-color: transparent;
+  background-color: #FE6933;
   border: none;
   height: 38px;
   margin: 16px;
   width: 36px;
+}
+
+md-toolbar:not(.md-menu-toolbar){
+  background-color: #FE6933;
 }
 
 md-toolbar h1 {

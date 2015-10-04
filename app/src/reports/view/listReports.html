@@ -1,12 +1,14 @@
 
 <div ng-Controller="ReportsController as rc">
 	
-
 <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;">
 	<md-whiteframe class="md-whiteframe-2dp" flex="25" layout layout-align="center center">
     <span>TOTAL FETCHED | {{rc.reports.length}}</span>
   	</md-whiteframe>
 </div>
+    <md-list>
+    <md-divider inset></md-divider>
+
     <md-list-item class="md-3-line" ng-repeat="item in rc.reports">
         <img ng-src="{{item.imgUrls[0]}}?{{$index}}" class="md-avatar"/>
         <div class="md-list-item-text" layout="column">
@@ -14,5 +16,7 @@
           <h4>{{ item.title }}</h4>
           <p>{{ item.content }}</p>
         </div>
+        <md-divider inset></md-divider>
       </md-list-item>
+      <md-list>
 </div>

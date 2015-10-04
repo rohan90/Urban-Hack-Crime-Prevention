@@ -33,10 +33,10 @@
       <h1>Dashboard</h1>
     </md-toolbar>
 
-    <md-list>
+    <md-list class="dark-bg">
       <md-list-item ng-repeat="it in ul.menus">
           <md-button ng-click="ul.selectMenu(it)" ng-class="{'selected' : it === ul.selected }">
-            <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+            <!-- <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon> -->
             {{it.name}}
           </md-button>
       </md-list-item>
@@ -75,10 +75,14 @@
     <script src="./src/reports/ReportsController.js"></script>
     <script src="./src/reports/ReportsService.js"></script>
 
+
+    <script src="./src/create/create.js"></script>
+    <script src="./src/create/CreateController.js"></script>
+
     <script type="text/javascript">
 
           angular
-              .module('starterApp', ['ngMaterial', 'ui.router','menus','reports'])
+              .module('starterApp', ['ngMaterial', 'ui.router','menus','reports','create'])
               .config(function($mdThemingProvider, $mdIconProvider){
 
                   $mdIconProvider
@@ -97,8 +101,7 @@
               })
               .config(function($stateProvider, $urlRouterProvider) {
 
-                 $urlRouterProvider.otherwise('/');
-              
+                 $urlRouterProvider.otherwise('/stats');
                   $stateProvider          
                       .state('statistics', {
                           url: '/stats',
@@ -112,9 +115,12 @@
                       })
                       .state('create', {
                           url: '/create',
-                          templateUrl: './src/create/view/report.html'
-                          //controller: 'StatisticsController'
-                      })
+                          templateUrl: './src/create/view/report.html',
+                          controller: 'CreateController'
+                      });/*
+                      .otherwise({
+                      redirectTo: '/stats'
+                      });*/
               
               });
 
