@@ -3,7 +3,8 @@ var mongoose = require('mongoose')
     , models_path = process.cwd() + '/app/models'
 
 // mongoose.connect("mongodb://localhost/uh");
-mongoose.connect('mongodb://heroku_zgztp667:4ii90fq78ie4mcfvccafcfa8ad@ds027744.mongolab.com:27744/heroku_zgztp667');
+mongoose.connect(process.env.DATABASE_URI);
+// mongoose.connect('mongodb://heroku_zgztp667:4ii90fq78ie4mcfvccafcfa8ad@ds027744.mongolab.com:27744/heroku_zgztp667');
 var db = mongoose.connection;
 
 db.on('error', function (err) {
