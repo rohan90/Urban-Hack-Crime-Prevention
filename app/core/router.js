@@ -16,12 +16,26 @@ server
     .use(restify.fullResponse())
     .use(restify.bodyParser())
 
+//healthcheck
+server.get("/healthcheck", healthcheck)
+
+function healthcheck(req,res){
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    console.log("received a healthcheck hit\n")
+    res.end('Server is up..\n');
+} 
+
+var base = "/api/v1"
+
+
 // Article Start
-server.post("/articles", controllers.article.createArticle)
-server.put("/articles/:id", controllers.article.updateArticle)
-server.del("/articles/:id", controllers.article.deleteArticle)
-server.get({path: "/articles/:id", version: "1.0.0"}, controllers.article.viewArticle)
-server.get({path: "/articles/:id", version: "2.0.0"}, controllers.article.viewArticle_v2)
+server.post(base+"/articles", controllers.article.createArticle)
+server.put(base+"/articles/:id", controllers.article.updateArticle)
+server.del(base+"/articles/:id", controllers.article.deleteArticle)
+server.get({path: base+"/articles/:id", version: "1.0.0"}, controllers.article.viewArticle)
+server.get({path: base+"/articles/:lat/:lng/:radius", version: "1.0.0"}, controllers.article.fetchArticlesByRange)
+server.get({path: base+"/articles/", version: "1.0.0"}, controllers.article.fetchArticles)
+server.get({path: base+"/articles/:id", version: "2.0.0"}, controllers.article.viewArticle_v2)
 
 // This is comment operations referenced in article
 server.put("/articles/:id/comments", controllers.article.createArticleComment)
@@ -29,9 +43,9 @@ server.put("/articles/:id/comments", controllers.article.createArticleComment)
 
 // Comment Start
 // You can also operate on commands in Comment resource. Some of the URI below, refers to above URIs for article
-server.put("/comments/:id", controllers.comment.updateComment)
-server.del("/comments/:id", controllers.comment.deleteComment)
-server.get("/comments/:id", controllers.comment.viewComment)
+server.put(base+"/comments/:id", controllers.comment.updateComment)
+server.del(base+"/comments/:id", controllers.comment.deleteComment)
+server.get(base+"/comments/:id", controllers.comment.viewComment)
 // Comment End
 
 var port = process.env.PORT || 3000;

@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
     , fs = require('fs')
     , models_path = process.cwd() + '/app/models'
 
-mongoose.connect(process.env.MONGO_URL, {server:{auto_reconnect:true}});
+mongoose.connect("mongodb://localhost/uh");
 var db = mongoose.connection;
 
 db.on('error', function (err) {
