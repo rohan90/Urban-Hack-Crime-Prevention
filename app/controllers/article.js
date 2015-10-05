@@ -279,11 +279,13 @@ exports.fetchArticlesCount = function(req, res, next) {
             if (article) {
                 res.json({
                     type: true,
+                    count:article,
                     data: article
                 })
             } else {
                 res.json({
                     type: false,
+                    count:0,
                     data: "Article: " + req.params.id + " not found"
                 })
             }
@@ -309,11 +311,13 @@ exports.fetchArticlesCountBy = function(req, res, next) {
             if (article) {
                 res.json({
                     type: true,
+                    count:article,
                     data: article
                 })
             } else {
                 res.json({
                     type: false,
+                    count:0,
                     data: "Article: " + key+"="+value+ " not found"
                 })
             }

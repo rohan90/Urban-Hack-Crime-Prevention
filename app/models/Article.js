@@ -9,7 +9,8 @@ var ArticleSchema = new Schema({
     tags: [String],
     category: String,
     role:String,
-    
+    authorEmail:String,
+    authorGender:String,
     author: String,
     authorImgUrl: String,
     //comments: [Comment.schema],
