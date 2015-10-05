@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.common.base.Joiner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -142,6 +143,24 @@ public class Utils {
         return dist;
     }
 
+
+    //TODO fix the if conditions make it inline
+    public static String getSeperatedStringWithNullChecks(String separator, String... list) {
+        List<String> safe = new ArrayList<String>();
+        for (String s : list) {
+            if (s != null && !s.isEmpty()) {
+                safe.add(s.trim());
+            }
+        }
+
+        String join = Joiner.on(separator).join(list);
+        if (join == null || join.equals(separator)) {
+
+        } else
+            return join;
+
+        return "";
+    }
 
 
 }

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_custom_nav_drawer_profile_image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/icon_profile_placeholder"
         app:border_color="#FFF"
         app:border_width="2dp"
-        android:layout_marginLeft="10dp"
         />
 
     <TextView
@@ -24,7 +25,10 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAllCaps="true"
+        android:text="Tushar Choudhary"
+        android:layout_gravity="center_horizontal"
         android:textColor="@color/white"
+        android:layout_marginBottom="20dp"
         android:textSize="22sp" />
 
 </LinearLayout>

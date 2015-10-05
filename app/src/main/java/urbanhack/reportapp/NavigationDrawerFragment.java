@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +52,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mUserLearnedDrawer = Boolean.getBoolean(readFromSharedPreferences(getActivity(),KEY_DRAWER_LEARNED,"false"));
+        mUserLearnedDrawer = Boolean.getBoolean(SharedPreferenceUtil.getInstance(getActivity()).getData( KEY_DRAWER_LEARNED, "false"));
 
         if(savedInstanceState != null){
             mFromSavedInstanceState = true;
@@ -63,6 +65,21 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        TextView nameTv = (TextView) layout.findViewById(R.id.tv_nav_drawer_profile_name);
+        ImageView profileIv = (ImageView) layout.findViewById(R.id.iv_custom_nav_drawer_profile_image);
+        SharedPreferenceUtil preferenceUtil = SharedPreferenceUtil.getInstance(getActivity());
+
+        String name = preferenceUtil.getData("name", "");
+        String url = preferenceUtil.getData("url","null");
+        Logger.logError("author is" +name);
+        Logger.logError("url is "+url);
+        if(url!=null)
+             Picasso.with(getActivity()).load(url).placeholder(R.drawable.icon_profile_placeholder).into(profileIv);
+
+        if(name!=null)
+            nameTv.setText(name);
+        else
+            nameTv.setText("");
 
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.rv_drawer_menu_list);
         menuAdapter = new DrawerMenuAdapter(getActivity(),getData());
@@ -96,7 +113,6 @@ public class NavigationDrawerFragment extends Fragment {
                 super.onDrawerOpened(drawerView);
                 if(!mUserLearnedDrawer){
                     mUserLearnedDrawer =true;
-                    saveToPreferences(getActivity(), KEY_DRAWER_LEARNED, "" + mUserLearnedDrawer);
                 }
 
                 getActivity().invalidateOptionsMenu();
@@ -122,21 +138,7 @@ public class NavigationDrawerFragment extends Fragment {
         });
     }
 
-    //TODO use prefs utils for this
-    private void saveToPreferences(Context context, String preferenceName, String preferenceValue) {
 
-        SharedPreferences prefs = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(preferenceName, preferenceValue);
-        editor.apply();
-
-    }
-
-    private String readFromSharedPreferences(Context context, String preferenceName, String defaultValue){
-        SharedPreferences prefs = context.getSharedPreferences(PREF_FILE_NAME,Context.MODE_PRIVATE);
-
-        return prefs.getString(preferenceName,defaultValue);
-    }
 
     /**
      * Drawer Items classes
@@ -217,11 +219,11 @@ public class NavigationDrawerFragment extends Fragment {
     //TODO extract this to resource?
     private List<DrawerMenuItem> getData(){
         List<DrawerMenuItem> data = new ArrayList<>();
-        data.add(new DrawerMenuItem(R.drawable.ic_screen, "Maps "));
-        data.add(new DrawerMenuItem(R.drawable.ic_screen, "Search"));
-        data.add(new DrawerMenuItem(R.drawable.ic_screen, "Information"));
-        data.add(new DrawerMenuItem(R.drawable.ic_screen, "My Profile"));
-        data.add(new DrawerMenuItem(R.drawable.ic_screen, "Logout"));
+        data.add(new DrawerMenuItem(R.drawable.ic_home_black_24dp, "Search"));
+        data.add(new DrawerMenuItem(R.drawable.map, "Maps "));
+        data.add(new DrawerMenuItem(R.drawable.info, "Information"));
+        data.add(new DrawerMenuItem(R.drawable.ic_account_circle_black_24dp, "My Profile"));
+        data.add(new DrawerMenuItem(R.drawable.logout, "Logout"));
 
         return data;
     }

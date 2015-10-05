@@ -8,8 +8,11 @@
     <string name="facebook_app_id">1649788781965056</string>
 
     <string name="google_maps_api_key">AIzaSyBpYiqYkfw3yS1LMCu1Sy2fYi8JcqgvrwU</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">Search Reports</string>
     <string name="screen">Screen</string>
     <string name="date_time_format">"dd/MM/yyyy"</string>
-    <string name="title_activity_report_summary">ReportSummaryActivity</string>
+    <string name="title_activity_report_summary">Report Summary</string>
+    <string name="ReportLabel">Report Crime</string>
+    <string name="title_activity_ble_chat">BleChatActivity</string>
+    <string name="title_activity_kiosk_connect">KioskConnectActivity</string>
 </resources>

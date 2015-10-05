@@ -40,9 +40,9 @@
     <color name="btn_grey">#E1DFE0</color>
 
     <!--Material colors-->
-    <color name="primaryColor">#ff5722</color>
-    <color name="primaryColorDark">#e64a19</color>
-    <color name="accentColor">#18ffff</color>
+    <color name="primaryColor">#F34235</color>
+    <color name="primaryColorDark">#D22E2E</color>
+    <color name="accentColor">#009587</color>
 
     <color name="white">#fff</color>
     <!--<color name="nav_drawer_color">#212121</color>-->

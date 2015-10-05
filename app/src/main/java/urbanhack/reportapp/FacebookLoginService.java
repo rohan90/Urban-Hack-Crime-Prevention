@@ -108,9 +108,20 @@ public class FacebookLoginService extends AbstractLoginService implements Facebo
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
-                        Log.e("FB RESPONSE","  " + response.getError());
+                        Log.e("FB RESPONSE", "  " + response.getError());
                         try {
-                            getImage(response.getJSONObject().getString("id"));
+
+                            SharedPreferenceUtil preferenceUtil = SharedPreferenceUtil.getInstance(context);
+                            String name =response.getJSONObject().getString("name");
+                            String email = response.getJSONObject().getString("email");
+                            String gender = response.getJSONObject().getString("gender");
+                            Logger.logError("author is "+name);
+                            preferenceUtil.saveData("name", name);
+                            preferenceUtil.saveData(AppConstants.BUNDLE_KEYS.EMAIL, email);
+                            preferenceUtil.saveData(AppConstants.BUNDLE_KEYS.GENDER,gender);
+                            String id = response.getJSONObject().getString("id");
+                            String url = "https://graph.facebook.com/" + id+ "/picture?type=large";
+                            preferenceUtil.saveData("url", url);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -122,20 +133,7 @@ public class FacebookLoginService extends AbstractLoginService implements Facebo
         );
     }
 
-    void getImage(String userId){
-        /* make the API call */
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/"+userId+"/picture",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                    Logger.logError("get Image "+response.getRawResponse());
-                    }
-                }
-        ).executeAsync();
-    }
+
 
     private Bundle getRequestBundle() {
         Bundle parameters = new Bundle(1);

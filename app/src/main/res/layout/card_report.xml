@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp"
-    android:background="@color/white"
+    android:layout_margin="20dp"
+    android:background="@android:color/transparent"
     card_view:cardCornerRadius="14dp"
     card_view:cardElevation="1dp"
     card_view:cardUseCompatPadding="true">
@@ -33,9 +31,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:adjustViewBounds="true"
-                    android:padding="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/logo_bangalore_police" />
+                    android:src="@drawable/card_placeholder" />
 
                 //TODO
 
@@ -71,9 +68,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-
-                android:orientation="horizontal"
-                android:paddingBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/iv_profile_pic"

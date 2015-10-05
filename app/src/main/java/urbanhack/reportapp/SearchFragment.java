@@ -126,6 +126,12 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Sw
         searchView = (RelativeLayout) view.findViewById(R.id.rl_card_search_view);
         container = (RelativeLayout) view.findViewById(R.id.container_searchFragment);
 
+        SharedPreferenceUtil preferenceUtil = SharedPreferenceUtil.getInstance(getActivity());
+        String url = preferenceUtil.getData("url",null);
+        if(url!=null)
+            Picasso.with(getActivity()).load(url).placeholder(R.drawable.icon_profile_placeholder).into(searchIV);
+
+
 
         waveDrawable = new WaveDrawable(Color.parseColor("#121212"), 500);
         container.setBackground(waveDrawable);
@@ -145,7 +151,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Sw
 
     private void hideSearching() {
         waveDrawable.stopAnimation();
-        searchView.setVisibility(View.INVISIBLE);
+        searchIV.setVisibility(View.INVISIBLE);
         noCardsTv.setVisibility(View.INVISIBLE);
         flingContainer.setVisibility(View.VISIBLE);
         dislike.setEnabled(true);
@@ -154,7 +160,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Sw
     }
 
     private void startSearching() {
-        searchView.setVisibility(View.VISIBLE);
+        searchIV.setVisibility(View.VISIBLE);
         flingContainer.setVisibility(View.INVISIBLE);
         noCardsTv.setVisibility(View.VISIBLE);
         waveDrawable.startAnimation();
@@ -189,7 +195,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Sw
     private void addCardsFromBackend(List<Report> reports) {
         for (Report report : reports) {
             try {
-                cards.add(new Card(report.getImgUrls().get(0), report.getAuthorImgUrl(),report.getTitle(),report.getCategory(), DateUtils.getFormatedDateString(report.getDateOfReport()),report.getAuthor(),report.getId()));
+                List<String> list = report.getImgUrls();
+                if(list.size()>0)
+                    cards.add(new Card(list.get(0), report.getAuthorImgUrl(),report.getTitle(),report.getCategory(), DateUtils.getFormatedDateString(report.getDateOfReport()),report.getAuthor(),report.getId()));
+                else
+                    cards.add(new Card("null", report.getAuthorImgUrl(),report.getTitle(),report.getCategory(), DateUtils.getFormatedDateString(report.getDateOfReport()),report.getAuthor(),report.getId()));
             } catch (Exception e) {
                 Logger.logError("Exception oocurred while adding card "+e.getMessage());
             }
@@ -334,7 +344,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Sw
 
 
             if (card.getImageUrl() != null && !card.getImageUrl().isEmpty())
-                Picasso.with(getActivity()).load(card.getImageUrl()).placeholder(R.drawable.logo_bangalore_police).into(mainIv);
+                Picasso.with(getActivity()).load(card.getImageUrl()).placeholder(R.drawable.card_placeholder).into(mainIv);
             if (card.getAuthorImageUrl() != null && !card.getAuthorImageUrl().isEmpty())
                 Picasso.with(getActivity()).load(card.getAuthorImageUrl()).placeholder(R.drawable.icon_profile_placeholder).into(profilePicIV);
 

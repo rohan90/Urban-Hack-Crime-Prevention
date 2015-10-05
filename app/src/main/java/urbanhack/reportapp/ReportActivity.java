@@ -1,25 +1,19 @@
 package urbanhack.reportapp;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -38,7 +32,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -61,25 +54,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-public class ReportActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ReportActivity extends BaseActivity implements AdapterView.OnItemClickListener {
     private ImageView reportImage;
     private Report report;
     private Spinner categorySpinner;
@@ -109,9 +97,16 @@ public class ReportActivity extends AppCompatActivity implements AdapterView.OnI
         initTags();
         initDescription();
         initFab();
+        initToolbar();
+    }
+    private void initToolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
     }
 
+
     private void initFab() {
+        final Activity activity = this;
         com.github.clans.fab.FloatingActionButton fab = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.menu_item_2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,8 +175,12 @@ public class ReportActivity extends AppCompatActivity implements AdapterView.OnI
         report.setTags(listOfTags);
         report.setDateOfIncident(new DateTime().toDate());
         SharedPreferenceUtil preferenceUtil = SharedPreferenceUtil.getInstance(this);
-        String author = preferenceUtil.getData("author", "author");
-        String authorUrl = preferenceUtil.getData("authorUrl","url");
+        String author = preferenceUtil.getData("name", null);
+        String authorUrl = preferenceUtil.getData("url", null);
+        String gender = preferenceUtil.getData(AppConstants.BUNDLE_KEYS.GENDER,null);
+        String email = preferenceUtil.getData(AppConstants.BUNDLE_KEYS.EMAIL,null);
+        report.setAuthorGender(gender);
+        report.setAuthorEmail(email);
         report.setAuthor(author);
         report.setAuthorImgUrl(authorUrl);
         report.setTitle(tit);
@@ -194,7 +193,8 @@ public class ReportActivity extends AppCompatActivity implements AdapterView.OnI
             throw new Exception();
         }
 
-        saveReport("http://192.168.1.19:3000/api/v1/articles",report);
+//        p
+        saveReport(AppConstants.APIs.URL+"/api/v1/articles",report);
     }
 
     private void initTags() {
@@ -773,13 +773,12 @@ public class ReportActivity extends AppCompatActivity implements AdapterView.OnI
             String response = null;
             @Override
             protected String doInBackground(String... params) {
+                String isSuccess = "false";
                 try {
                     String body = getDateCompatibleGson().toJson(report);
                     response = GenericService.saveReport(url,body).body().string();
                     if(new JSONObject(response).getBoolean("type")){
-                        Toast.makeText(getApplicationContext(),"Successfully saved report!",Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(),"Error while saving report!",Toast.LENGTH_LONG).show();
+                        isSuccess= "true";
                     }
                     Logger.logError("Response: "+response);
                 } catch (IOException e) {
@@ -787,7 +786,17 @@ public class ReportActivity extends AppCompatActivity implements AdapterView.OnI
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return response;
+                return isSuccess;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if(s.equalsIgnoreCase("true"))
+                    Toast.makeText(getApplicationContext(),"Report saved successfully!",Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getApplicationContext(),"Error while saving report!",Toast.LENGTH_LONG).show();
+
             }
         }.execute();
     }

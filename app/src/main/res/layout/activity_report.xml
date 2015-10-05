@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,8 +11,6 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-
-
 
 
         <LinearLayout
@@ -22,8 +21,9 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <include layout="@layout/app_bar" />
-
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/app_bar"></include>
 
             <View
                 android:layout_width="fill_parent"
@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/star"
-            fab:fab_size="mini"
+            fab:fab_size="normal"
             fab:fab_label="Save Locally" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -137,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_tick"
-            fab:fab_size="mini"
+            fab:fab_size="normal"
             fab:fab_label="Post online" />
 
     </com.github.clans.fab.FloatingActionMenu>

@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, HomeAc
     private void initMarkers(GoogleMap map) {
         for (Report r : mReports) {
             Logger.logInfo("rendering marker on " + r.getLattitude() + "," + r.getLongitude() + "for Role:" + r.getRole());
-            if (r.getRole() != Role.USER)
+            if (r.getRole() == Role.USER)
                 map.addMarker(new MarkerOptions().position(new LatLng(r.getLattitude(), r.getLongitude())).title(r.getTitle()).snippet(r.getCategory()));
             else {
                 map.addMarker(new MarkerOptions().position(new LatLng(r.getLattitude(), r.getLongitude())).title(r.getTitle()).snippet(r.getCategory()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));

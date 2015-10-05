@@ -1,14 +1,15 @@
 package urbanhack.reportapp;
 
 /**
- * Created by rohan on 2/10/15.
+ * Created by rohan on 3/10/15.
  */
 public class AppConstants {
 
     public static final String PREFS_NAME = "PreferencesFile";
 
     public static class APIs {
-        public static final String URL = "http://192.168.1.19:3000";
+//        public static final String URL = "http://192.168.1.19:3000";
+        public static final String URL = "http://urbanhack-be.herokuapp.com";
         public static final String BASE_URL = URL+"/api/v1";
         public static final String SEARCH_REPORTS_API = BASE_URL+"/articles";
         public static String SEARCH_REPORTS_BYLOCATION_API = SEARCH_REPORTS_API;
@@ -44,6 +45,8 @@ public class AppConstants {
         public static final String TOKEN = "token";
         public static final String LATITUDE_CURRENT = "lattitude";
         public static final String LONGITUDE_CURRENT = "longitude";
+        public static final String GENDER = "gender";
+        public static final String EMAIL = "email";
     }
 
     public static class GOOGLE_PLACES_API {

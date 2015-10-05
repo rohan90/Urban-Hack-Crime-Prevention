@@ -41,7 +41,7 @@ public class HomeActivity extends BaseActivity {
         initToolbar();
         initNavDrawer();
         getUserLocation();
-        drawerItemSelected(1);
+        drawerItemSelected(0);
     }
 
     private void getUserLocation() {
@@ -114,20 +114,18 @@ public class HomeActivity extends BaseActivity {
         String title = "";
         switch (position){
             case 0:
-                title = "Maps"; //TODO string resource this;
-                mFragment = HomeFragment.getInstance();
+                title = "Search";
+                mFragment = SearchFragment.getInstance();
                 replaceFragment(mFragment);
                 break;
             case 1:
-                title = "Search";
-                mFragment = SearchFragment.getInstance();
+                title = "Maps"; //TODO string resource this;
+                mFragment = HomeFragment.getInstance();
                 replaceFragment(mFragment);
                 break;
             case 2:
                 break;
             default:
-                mFragment = HomeFragment.getInstance();
-                replaceFragment(mFragment);
                 break;
         }
         mToolbar.setTitle(title);
@@ -192,11 +190,11 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void getReports(int i) {
-        executeTask(AppConstants.TASK_CODES.GET_REPORTS, AppConstants.APIs.SEARCH_REPORTS_API/* + "/" + currentPage + "/10"*/, preferenceUtil.getData(AppConstants.BUNDLE_KEYS.TOKEN, ""));
+        executeTask(AppConstants.TASK_CODES.GET_REPORTS, AppConstants.APIs.SEARCH_REPORTS_API+"/0/0", preferenceUtil.getData(AppConstants.BUNDLE_KEYS.TOKEN, ""));
     }
 
     public void fetchMarkers(double latitude, double longitude, int radius) {
-        executeTask(AppConstants.TASK_CODES.GET_REPORTS_BY_LOCATION, AppConstants.APIs.SEARCH_REPORTS_BYLOCATION_API+"/"+latitude+"/"+longitude+"/"+radius, preferenceUtil.getData(AppConstants.BUNDLE_KEYS.TOKEN, ""));
+        executeTask(AppConstants.TASK_CODES.GET_REPORTS_BY_LOCATION, AppConstants.APIs.SEARCH_REPORTS_BYLOCATION_API + "/" + latitude + "/" + longitude + "/" + radius, preferenceUtil.getData(AppConstants.BUNDLE_KEYS.TOKEN, ""));
     }
 
     public interface SearchListener {

@@ -27,6 +27,8 @@
         android:layout_margin="20dp"
         android:layout_height="wrap_content"
         android:minHeight="80dp"
+        android:textSize="14sp"
+        android:gravity="top"
         android:hint="Include your incident experience here..."
         android:textColor="@color/text_light"
         android:textColorHint="@color/text_very_light"
